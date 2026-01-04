@@ -10,6 +10,13 @@ export interface IProductDataSource {
   fetchByCategory(category: string): Promise<ProductDTO[]>;
 }
 
+// Simulated API delay in milliseconds
+const MOCK_API_DELAY = {
+  FETCH_ALL: 500,
+  FETCH_BY_ID: 300,
+  FETCH_BY_CATEGORY: 400,
+};
+
 export class MockProductDataSource implements IProductDataSource {
   private mockProducts: ProductDTO[] = [
     {
@@ -68,17 +75,17 @@ export class MockProductDataSource implements IProductDataSource {
 
   async fetchAll(): Promise<ProductDTO[]> {
     // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, MOCK_API_DELAY.FETCH_ALL));
     return this.mockProducts;
   }
 
   async fetchById(id: string): Promise<ProductDTO | null> {
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, MOCK_API_DELAY.FETCH_BY_ID));
     return this.mockProducts.find((p) => p.id === id) || null;
   }
 
   async fetchByCategory(category: string): Promise<ProductDTO[]> {
-    await new Promise((resolve) => setTimeout(resolve, 400));
+    await new Promise((resolve) => setTimeout(resolve, MOCK_API_DELAY.FETCH_BY_CATEGORY));
     return this.mockProducts.filter((p) => p.category === category);
   }
 }

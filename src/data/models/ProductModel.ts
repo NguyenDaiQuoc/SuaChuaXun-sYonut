@@ -28,7 +28,7 @@ export class ProductMapper {
       price: dto.price,
       imageUrl: dto.image_url,
       category: dto.category,
-      availableToppings: dto.toppings?.map(this.toppingToDomain) || [],
+      availableToppings: dto.toppings?.map(ProductMapper.toppingToDomain) || [],
     };
   }
 
@@ -40,7 +40,7 @@ export class ProductMapper {
       price: product.price,
       image_url: product.imageUrl,
       category: product.category,
-      toppings: product.availableToppings.map(this.toppingToDTO),
+      toppings: product.availableToppings.map(ProductMapper.toppingToDTO),
     };
   }
 
